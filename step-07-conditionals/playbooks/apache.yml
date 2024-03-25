@@ -38,6 +38,12 @@
     - name: Rolling back - Removing our virtualhost
       command: a2dissite awesome-app
       when: result is failed
+      # notify:
+      #   - restart apache
+    
+    - name: Restart Apache
+      ansible.builtin.command: "service apache2 restart"
+      when: result is failed
 
     - name: Rolling back - Ending playbook
       fail:
@@ -49,11 +55,11 @@
 
     - name: Deactivates the default ssl virtualhost
       command: a2dissite default-ssl
-      notify:
-        - restart apache
+      # notify:
+      #   - restart apache
 
-  handlers:
-    - name: restart apache
-      service:
-        name: apache2
-        state: restarted
+  # handlers:
+  #   - name: restart apache
+  #     service:
+  #       name: apache2
+  #       state: restarted
