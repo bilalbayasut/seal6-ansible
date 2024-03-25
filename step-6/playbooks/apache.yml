@@ -12,6 +12,9 @@
         src: ../files/awesome-app.conf
         dest: /etc/apache2/sites-available/awesome-app.conf
         mode: 0640
+    
+    - name: Check that our config is valid
+      ansible.builtin.command: apache2ctl configtest
 
     - name: Activates our virtualhost
       file:
