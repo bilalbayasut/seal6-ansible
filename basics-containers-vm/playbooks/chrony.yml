@@ -1,0 +1,9 @@
+---
+- hosts: all
+  become: false
+  tasks:
+    - name: Install chrony
+      community.general.apk:
+        name: chrony
+        update_cache: true
+        state: latest

@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  # alpine-ssh1:
+  #   image: alpine
+  #   container_name: alpine-ssh1
+  #   command: sh -c "apk add --no-cache openssh-server python3 && ssh-keygen -A && /usr/sbin/sshd -D"
+  #   ports:
+  #     - "2201:22"
+
+  # alpine-ssh2:
+  #   image: alpine
+  #   container_name: alpine-ssh2
+  #   command: sh -c "apk add --no-cache openssh-server python3 && ssh-keygen -A && /usr/sbin/sshd -D"
+  #   ports:
+  #     - "2202:22"
+
+  # alpine-ssh3:
+  #   image: alpine
+  #   container_name: alpine-ssh3
+  #   command: sh -c "apk add --no-cache openssh-server python3 && ssh-keygen -A && /usr/sbin/sshd -D"
+  #   ports:
+  #     - "2203:22"
+
+  # apache-1:
+  #   image: debian
+  #   container_name: apache-1
+  #   command: bash -c "apt update && apt install -y openssh-server sudo python3 && ssh-keygen -A && tail -f /dev/null "
+  #   ports:
+  #     - "2204:22"
+  #     - "81:80"
+  # nginx-1:
+  #   image: debian
+  #   container_name: nginx-1
+  #   command: bash -c "apt update && apt install -y openssh-server sudo python3 && ssh-keygen -A && tail -f /dev/null "
+  #   ports:
+  #     - "2205:22"
+  #     - "82:80"
+
+  web-1:
+    image: debian
+    container_name: web-1
+    command: bash -c "apt update && apt install -y openssh-server sudo python3 && ssh-keygen -A && tail -f /dev/null"
+    ports:
+      - "2206:22"
+      - "83:80"
+
+  # wordpress:
+  #   image: ubuntu:18.04
+  #   container_name: wordpress
+  #   command: bash -c "apt update && apt install -y openssh-server sudo python3 && ssh-keygen -A && tail -f /dev/null "
+  #   ports:
+  #     - "2204:22"
+  #     - "81:80"

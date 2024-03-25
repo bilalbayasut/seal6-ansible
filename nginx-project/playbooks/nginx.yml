@@ -1,0 +1,44 @@
+---
+- name: Install and Configure Nginx
+  hosts: all
+  become: True
+  pre_tasks:
+    - name: Set SSH user for Ubuntu systems
+      set_fact:
+        ansible_user: root
+      when: ansible_os_family == "Debian"
+
+    - name: Set SSH user for RedHat systems
+      set_fact:
+        ansible_user: ec2-user
+      when: ansible_os_family == "RedHat"
+  tasks:
+    - name: Install Nginx for redhat
+      ansible.builtin.yum:
+        name: nginx
+        state: present
+      when: ansible_os_family == "RedHat"
+
+    - name: Install Nginx for debian
+      ansible.builtin.apt:
+        update_cache: true
+        name: nginx
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Template a file to /etc/index.html.j2
+      ansible.builtin.template:
+        src: ../templates/index.html.j2
+        dest: /var/www/html/index.html
+        mode: '0644'
+    - name: Stop nginx if it is running
+      ansible.builtin.service:
+        name: nginx
+        state: stopped
+        enabled: true
+
+    - name: Ensure Nginx is running and enabled
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: true

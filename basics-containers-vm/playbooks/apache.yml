@@ -1,0 +1,10 @@
+---
+- hosts: apache-1
+  tasks:
+    - name: Installs apache web server
+      ansible.builtin.apt:
+        pkg: apache2
+        state: latest
+        update_cache: true
+    - name: Start Apache
+      ansible.builtin.command: "service apache2 start"
